@@ -6,16 +6,16 @@ import './DropFile.css'
 function DropFile(props) {
     const fileInputRef = useRef(null);
     const [errors, setErrors] = useState({});
-    const [disabledUpload, setDisabledUpload] = useState(false);
+    // const [disabledUpload, setDisabledUpload] = useState(false);
     const [highlight, setHighlight] = useState(false);
 
     const openDialogFile = () => {
-        if(disabledUpload) return;
+        if(props.disabledUpload) return;
         fileInputRef.current.click();
     }
 
     const onFilesAdded = (evt) => {
-        if(disabledUpload) return;
+        if(props.disabledUpload) return;
         evt.preventDefault();
 
         const files = evt.target.files;
@@ -24,7 +24,7 @@ function DropFile(props) {
 
         if(arrayFiles.length>0) {
             setErrors({});
-            setDisabledUpload(true);
+            // setDisabledUpload(true);
             props.onUploadFiles(arrayFiles);
         }
         else {
@@ -38,7 +38,7 @@ function DropFile(props) {
     const onDragOver = (evt) => {
         evt.preventDefault();
 
-        if(disabledUpload) return;
+        if(props.disabledUpload) return;
         setHighlight(true);
     }
 
@@ -47,7 +47,7 @@ function DropFile(props) {
     }
 
     const onDrop = (evt) => {
-        if(disabledUpload) return;
+        if(props.disabledUpload) return;
         evt.preventDefault();
 
         const files = evt.dataTransfer.files;
@@ -56,7 +56,7 @@ function DropFile(props) {
 
         if(arrayFiles.length>0) {
             setErrors({});
-            setDisabledUpload(true);
+            // setDisabledUpload(true);
             props.onUploadFiles(arrayFiles);
         }
         else {
@@ -103,7 +103,7 @@ function DropFile(props) {
                 onDragOver={onDragOver}
                 onDragLeave={onDragLeave}
                 onDrop={onDrop}
-                style={{ cursor: disabledUpload ? "default" : "pointer" }}
+                style={{ cursor: props.disabledUpload ? "default" : "pointer" }}
             >
                 <img 
                     alt="upload"

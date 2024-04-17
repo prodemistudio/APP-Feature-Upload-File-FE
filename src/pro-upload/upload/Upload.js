@@ -6,6 +6,7 @@ import ProgressUpload from '../progress/ProgressUpload'
 function Upload(props) {
     const [files, setFiles] = useState([]);
     const [uploadProgress, setUploadProgress] = useState({});
+    const [disabledUpload, setDisabledUpload] = useState(false);
 
     const onUploadFiles = async(file) => {
         setFiles(file);
@@ -17,7 +18,10 @@ function Upload(props) {
         });
 
         try {
+            setDisabledUpload(true);
             await Promise.all(promises);
+            setFiles([])
+            setDisabledUpload(false)
         } catch (error) {
             console.log('error', error)
         }
@@ -79,7 +83,7 @@ function Upload(props) {
                     Upload Files
                 </span>
                 <div className='content'>
-                    <DropFile validateUpload={props.formatUpload} onUploadFiles={onUploadFiles} />
+                    <DropFile validateUpload={props.formatUpload} onUploadFiles={onUploadFiles} disabledUpload={disabledUpload} />
                     {
                         files.length>0 && (
                             files.map((val, ind) => {
