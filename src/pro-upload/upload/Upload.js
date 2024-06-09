@@ -71,7 +71,8 @@ function Upload(props) {
             let data = new FormData();
             data.append('uploaded_file', val);
 
-            req.open("POST", "http://localhost:5000/api/v1/upload/graph/file");
+            req.open("POST", "http://localhost/api/v1/upload/graph/file");
+            // req.open("POST", "http://IP-SERVER/LOCATION-API-NGINX/api/v1/upload/graph/file");
             req.send(data);
         })
     }
